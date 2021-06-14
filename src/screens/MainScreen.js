@@ -3,6 +3,7 @@ import { BottomNavigation } from "react-native-paper";
 import LibraryScreen from "./Library";
 import SearchScreen from "./Search";
 import UploadScreen from "./Upload";
+import ChatScreen from "./Chat";
 import ProfileScreen from "./Profile";
 
 const Main = () => {
@@ -11,6 +12,7 @@ const Main = () => {
     { key: "library", title: "Library", icon: "book-outline" },
     { key: "search", title: "Browse", icon: "magnify" },
     { key: "upload", title: "Upload", icon: "upload-outline" },
+    { key: "chat", title: "Chat", icon: "chat-outline" },
     { key: "profile", title: "Portfolio", icon: "account-outline" },
   ]);
 
@@ -18,6 +20,7 @@ const Main = () => {
     library: LibraryScreen,
     search: SearchScreen,
     upload: UploadScreen,
+    chat: ChatScreen,
     profile: ProfileScreen,
   });
 
