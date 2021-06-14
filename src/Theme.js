@@ -44,8 +44,8 @@ const theme = {
   fonts: configureFonts(fontConfig),
   colors: {
     ...DefaultTheme.colors,
-    primary: "#78b8f0",
-    secondary: "#f0bdda",
+    primary: "#125270",
+    secondary: "#81c9eb",
     accent: "#f0e0b9",
   },
 };
