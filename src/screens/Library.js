@@ -2,10 +2,10 @@ import * as React from "react";
 import { View, StyleSheet } from "react-native";
 import { Appbar } from "react-native-paper";
 
-const HomeRoute = () => (
+const LibraryRoute = () => (
   <View>
     <Appbar.Header>
-      <Appbar.Content title="Welcome" />
+      <Appbar.Content title="My Library" />
       <Appbar.Action
         icon="dots-vertical"
         onPress={() => console.log("button")}
@@ -14,7 +14,7 @@ const HomeRoute = () => (
   </View>
 );
 
-export default HomeRoute;
+export default LibraryRoute;
 
 const styles = StyleSheet.create({
   container: {

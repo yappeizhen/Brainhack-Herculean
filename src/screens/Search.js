@@ -2,12 +2,12 @@ import * as React from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
 import { Title, withTheme } from "react-native-paper";
 
-const ProfileRoute = (props) => (
+const SearchRoute = (props) => (
   <SafeAreaView style={styles.container}>
-    <Title>This is my portfolio</Title>
+    <Title>Search for materials here!</Title>
   </SafeAreaView>
 );
-export default withTheme(ProfileRoute);
+export default withTheme(SearchRoute);
 
 const styles = StyleSheet.create({
   container: {

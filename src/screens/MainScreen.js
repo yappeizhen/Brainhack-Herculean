@@ -1,17 +1,23 @@
 import * as React from "react";
 import { BottomNavigation } from "react-native-paper";
-import HomeScreen from "./Home";
+import LibraryScreen from "./Library";
+import SearchScreen from "./Search";
+import UploadScreen from "./Upload";
 import ProfileScreen from "./Profile";
 
 const Main = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: "home", title: "Home", icon: "home" },
-    { key: "profile", title: "Profile", icon: "account" },
+    { key: "library", title: "Library", icon: "book-outline" },
+    { key: "search", title: "Browse", icon: "magnify" },
+    { key: "upload", title: "Upload", icon: "upload-outline" },
+    { key: "profile", title: "Portfolio", icon: "account-outline" },
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
-    home: HomeScreen,
+    library: LibraryScreen,
+    search: SearchScreen,
+    upload: UploadScreen,
     profile: ProfileScreen,
   });
 
