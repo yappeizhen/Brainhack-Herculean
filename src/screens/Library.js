@@ -7,8 +7,8 @@ const LibraryRoute = () => (
     <Appbar.Header>
       <Appbar.Content title="My Library" />
       <Appbar.Action
-        icon="dots-vertical"
-        onPress={() => console.log("button")}
+        icon="magnify"
+        onPress={() => console.log("Search library")}
       />
     </Appbar.Header>
   </View>
