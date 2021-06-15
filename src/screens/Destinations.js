@@ -1,9 +1,20 @@
 import * as React from "react";
+import { useState } from "react";
 import { ScrollView, View, StyleSheet } from "react-native";
 import { Appbar, Chip, Divider, Card, Title, Subheading, Paragraph, Caption } from "react-native-paper";
-import { asiaDataSet } from "./../assets/data/destinationData";
+import { regions, asiaDataSet } from "./../assets/data/destinationData";
 
 const DestinationsRoute = () => {
+
+  const [selectedRegion, setSelectedRegion] = useState();
+
+  const regionsDisplay = regions.map((region) => {
+    const regionChipStyle = selectedRegion === region ? styles.selectedChip : styles.unselectedChip
+    return (
+      <Chip style={regionChipStyle} icon="chart-bell-curve" mode="outlined" onPress={() => setSelectedRegion(region)}>{region.name}</Chip>
+    );
+  })
+
   const asiaDataDisplay = asiaDataSet.map((country) => {
     let sign = country.casePercentageChange <= 0 ? "" : "+";
     let coloredStyle = country.casePercentageChange <= 0 ? styles.greenDataUnits : styles.redDataUnits;
@@ -40,12 +51,12 @@ const DestinationsRoute = () => {
         />
       </Appbar.Header>
       <View style={styles.section}>
-        <Chip style={styles.unselectedChip} icon="chart-bell-curve" mode="outlined" onPress={() => console.log('Pressed Chip')}>Economics</Chip>
+        {regionsDisplay}
+        {/* <Chip style={styles.unselectedChip} icon="chart-bell-curve" mode="outlined" onPress={() => console.log('Pressed Chip')}>Economics</Chip>
         <Chip style={styles.selectedChip} icon="xml" mode="outlined" onPress={() => console.log('Pressed Chip')}>Computer Science</Chip>
-        <Chip style={styles.unselectedChip} icon="hammer-screwdriver" mode="outlined" onPress={() => console.log('Pressed Chip')}>Mechanical Engineering</Chip>
+        <Chip style={styles.unselectedChip} icon="hammer-screwdriver" mode="outlined" onPress={() => console.log('Pressed Chip')}>Mechanical Engineering</Chip> */}
       </View>
       <Divider />
-
       <ScrollView contentContainerStyle={styles.scrollableSection}>
         <Title style={{ width: '100%', paddingLeft: 20 }}>Countries</Title>
         {asiaDataDisplay}
@@ -66,13 +77,13 @@ const styles = StyleSheet.create({
   unselectedChip: {
     backgroundColor: "#f2f0e1",
     borderColor: `#FBA200`,
-    marginRight: '2%',
+    margin: 3,
   },
   selectedChip: {
     backgroundColor: "#f2c9f0",
     borderColor: `#db9cd7`,
     borderWidth: 2,
-    margin: 7,
+    margin: 3,
   },
   section: {
     padding: 20,
