@@ -1,0 +1,51 @@
+export const asiaDataSet = [
+    {
+        name: "China",
+        casePercentageChange: -1.0,
+        casesPerDay: 29000,
+        deathsPerDay: 100,
+        percentageVaccinated: 6.3,
+    },
+    {
+        name: "Japan",
+        casePercentageChange: -2.0,
+        casesPerDay: 390,
+        deathsPerDay: 20,
+        percentageVaccinated: 7.0,
+    },
+    {
+        name: "South Korea",
+        casePercentageChange: 8.0,
+        casesPerDay: 40500,
+        deathsPerDay: 30,
+        percentageVaccinated: 80,
+    },
+    {
+        name: "Singapore",
+        casePercentageChange: 0.00,
+        casesPerDay: 14,
+        deathsPerDay: 0,
+        percentageVaccinated: 70,
+    },
+    {
+        name: "Cambodia",
+        casePercentageChange: 30,
+        casesPerDay: 900,
+        deathsPerDay: 100,
+        percentageVaccinated: 6.3,
+    },
+    {
+        name: "Thailand",
+        casesPerDay: 50,
+        casePercentageChange: -40,
+        deathsPerDay: 1000,
+        percentageVaccinated: 10,
+    },
+    {
+        name: "Malaysia",
+        casesPerDay: 5000,
+        casePercentageChange: 60,
+        deathsPerDay: 100,
+        percentageVaccinated: 6.3,
+    },
+]

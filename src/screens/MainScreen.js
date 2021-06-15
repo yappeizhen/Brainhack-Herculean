@@ -1,6 +1,6 @@
 import * as React from "react";
 import { BottomNavigation } from "react-native-paper";
-import LibraryScreen from "./Library";
+import DestinationsScreen from "./Destinations";
 import SearchScreen from "./Search";
 import UploadScreen from "./Upload";
 import ChatScreen from "./Chat";
@@ -9,7 +9,7 @@ import ProfileScreen from "./Profile";
 const Main = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: "library", title: "Library", icon: "book-outline" },
+    { key: "destinations", title: "Explore", icon: "earth" },
     { key: "search", title: "Browse", icon: "magnify" },
     { key: "upload", title: "Upload", icon: "upload-outline" },
     { key: "chat", title: "Chat", icon: "chat-outline" },
@@ -17,7 +17,7 @@ const Main = () => {
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
-    library: LibraryScreen,
+    destinations: DestinationsScreen,
     search: SearchScreen,
     upload: UploadScreen,
     chat: ChatScreen,
