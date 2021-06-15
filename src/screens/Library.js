@@ -3,7 +3,7 @@ import { ScrollView, View, StyleSheet } from "react-native";
 import { Appbar, Chip, Divider, Card, Paragraph, Title, Subheading } from "react-native-paper";
 
 const LibraryRoute = () => (
-  <ScrollView>
+  <View style={{flex: 1}}>
     <Appbar.Header>
       <Appbar.Content title="My Library" />
       <Appbar.Action
@@ -17,8 +17,9 @@ const LibraryRoute = () => (
       <Chip style={styles.unselectedChip} icon="hammer-screwdriver" mode="outlined" onPress={() => console.log('Pressed Chip')}>Mechanical Engineering</Chip>
     </View>
     <Divider />
-    <View style={styles.section}>
-      <Title style={{ width: '100%' }}>Topics</Title>
+
+    <ScrollView contentContainerStyle={styles.scrollableSection}>
+      <Title style={{ width: '100%', paddingLeft: 20}}>Topics</Title>
       <Card style={styles.topicCard}>
         <Subheading style={{ textAlign: 'center' }}>Algorithms</Subheading>
         <Divider />
@@ -33,8 +34,29 @@ const LibraryRoute = () => (
         <Divider />
 
       </Card>
-    </View>
-  </ScrollView>
+      <Card style={styles.topicCard}>
+        <Subheading style={{ textAlign: 'center' }}>Algorithms</Subheading>
+        <Divider />
+
+      </Card>
+      <Card style={styles.topicCard}>
+        <Subheading style={{ textAlign: 'center' }}>Algorithms</Subheading>
+        <Divider />
+
+      </Card>
+      <Card style={styles.topicCard}>
+        <Subheading style={{ textAlign: 'center' }}>Algorithms</Subheading>
+        <Divider />
+
+      </Card>
+      <Card style={styles.topicCard}>
+        <Subheading style={{ textAlign: 'center' }}>Algorithms</Subheading>
+        <Divider />
+
+      </Card>
+      
+    </ScrollView>
+  </View >
 );
 
 export default LibraryRoute;
@@ -55,22 +77,29 @@ const styles = StyleSheet.create({
     backgroundColor: "#f2c9f0",
     borderColor: `#db9cd7`,
     borderWidth: 2,
-    marginRight: '2%',
-    marginBottom: '3%',
+    margin: 7,
   },
   section: {
-    padding: '3%',
-    flexDirection: 'row',
+    padding: 20,
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingTop: 10
+    paddingTop: 10,
+  },
+  scrollableSection: {
+    paddingLeft: 10,
+    alignItems: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingTop: 10,
   },
   topicCard: {
+    flexDirection: 'row',
     padding: '3%',
-    width: '40%',
-    height: '100%',
-    margin: '3%',
-    marginTop: '5%',
+    width: 135,
+    height: 200,
+    marginLeft: '7%',
+    marginBottom: '5%',
+    marginTop: 5,
   }
 });
