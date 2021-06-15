@@ -1,21 +1,31 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ScrollView, View, StyleSheet } from "react-native";
 import { Appbar, Chip, Divider, Card, Title, Subheading, Paragraph, Caption } from "react-native-paper";
-import { regions, asiaDataSet } from "./../assets/data/destinationData";
+import { regions, asiaDataSet, europeDataSet } from "./../assets/data/destinationData";
 
 const DestinationsRoute = () => {
 
   const [selectedRegion, setSelectedRegion] = useState();
+  const [countrySet, setCountrySet] = useState(asiaDataSet);
 
-  const regionsDisplay = regions.map((region) => {
+  const handleSelectRegion = (region) => {
+    setSelectedRegion(region);
+    if (region.name === 'Asia') {
+      setCountrySet(asiaDataSet)
+    } else {
+      setCountrySet(europeDataSet)
+    }
+  }
+
+  let regionsDisplay = regions.map((region) => {
     const regionChipStyle = selectedRegion === region ? styles.selectedChip : styles.unselectedChip
     return (
-      <Chip style={regionChipStyle} icon="chart-bell-curve" mode="outlined" onPress={() => setSelectedRegion(region)}>{region.name}</Chip>
+      <Chip key={region.name} style={regionChipStyle} icon="chart-bell-curve" mode="outlined" onPress={() => handleSelectRegion(region)}>{region.name}</Chip>
     );
   })
 
-  const asiaDataDisplay = asiaDataSet.map((country) => {
+  const countryDataDisplay = countrySet.map((country) => {
     let sign = country.casePercentageChange <= 0 ? "" : "+";
     let coloredStyle = country.casePercentageChange <= 0 ? styles.greenDataUnits : styles.redDataUnits;
     return (
@@ -59,7 +69,7 @@ const DestinationsRoute = () => {
       <Divider />
       <ScrollView contentContainerStyle={styles.scrollableSection}>
         <Title style={{ width: '100%', paddingLeft: 20 }}>Countries</Title>
-        {asiaDataDisplay}
+        {countryDataDisplay}
       </ScrollView>
     </View >
   );
