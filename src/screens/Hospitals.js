@@ -11,65 +11,65 @@ import {
   Paragraph,
   Caption,
 } from "react-native-paper";
-import { pharmacies } from "../assets/data/pharmacies";
+import { hospitals } from "../assets/data/hospitals";
 
-const pharmaciesRoute = () => {
-  const [selectedPharmacy, setSelectedpharmacy] = useState(null);
+const HospitalsRoute = () => {
+  const [selectedHospital, setSelectedHospital] = useState(null);
 
-  const handleSelectedCard = (pharmacy) => {
-    setSelectedpharmacy(pharmacy);
+  const handleSelectedCard = (hospital) => {
+    setSelectedHospital(hospital);
   };
 
   const DisplayAnImage = () => {
-    if (selectedPharmacy === null) {
+    if (selectedHospital === null) {
       return (
         <Image
           style={styles.image}
           source={require("../images/sg.png")}
         ></Image>
       );
-    } else if (selectedPharmacy.name === "Unity Kallang Bahru") {
+    } else if (selectedHospital.name === "Singapore General Hospital") {
       return (
         <Image
           style={styles.image}
-          source={require("../images/330071.png")}
+          source={require("../images/sgh.png")}
         ></Image>
       );
-    } else if (selectedPharmacy.name === "Farrer Park Pharmacy") {
+    } else if (selectedHospital.name === "Changi General Hospital") {
       return (
         <Image
           style={styles.image}
-          source={require("../images/217562.png")}
+          source={require("../images/cgh.png")}
         ></Image>
       );
-    } else if (selectedPharmacy.name === "Alchemy Pharmacy") {
+    } else if (selectedHospital.name === "National University Hospital") {
       return (
         <Image
           style={styles.image}
-          source={require("../images/510258.png")}
+          source={require("../images/nuh.png")}
         ></Image>
       );
     } else {
       return (
         <Image
           style={styles.image}
-          source={require("../images/527201.png")}
+          source={require("../images/tth.png")}
         ></Image>
       );
     }
   };
 
-  const pharmaciesDisplay = pharmacies.map((pharmacy) => {
+  const hospitalsDisplay = hospitals.map((hospital) => {
     const cardStyle =
-      selectedPharmacy === pharmacy
+      selectedHospital === hospital
         ? styles.selectedCard
         : styles.unselectedCard;
     return (
-      <Card key={pharmacy.name} style={cardStyle} onPress={() => handleSelectedCard(pharmacy)}>
-        <Subheading style={{ textAlign: "center" }}>{pharmacy.name}</Subheading>
+      <Card style={cardStyle} onPress={() => handleSelectedCard(hospital)}>
+        <Subheading style={{ textAlign: "center" }}>{hospital.name}</Subheading>
         <Divider />
         <View style={styles.address}>
-          <Paragraph>{pharmacy.address}</Paragraph>
+          <Paragraph>{hospital.address}</Paragraph>
         </View>
       </Card>
     );
@@ -78,7 +78,7 @@ const pharmaciesRoute = () => {
   return (
     <View style={{ flex: 1 }}>
       <Appbar.Header>
-        <Appbar.Content title="Pharmacies" />
+        <Appbar.Content title="Hospitals Near You" />
         <Appbar.Action
           icon="magnify"
           onPress={() => console.log("Search places")}
@@ -87,14 +87,14 @@ const pharmaciesRoute = () => {
       {DisplayAnImage()}
       <Divider style={styles.divider} />
       <ScrollView contentContainerStyle={styles.scrollableSection}>
-        <Title style={{ width: "100%", paddingLeft: 20 }}>Pharmacies</Title>
-        {pharmaciesDisplay}
+        <Title style={{ width: "100%", paddingLeft: 20 }}>Hospitals</Title>
+        {hospitalsDisplay}
       </ScrollView>
     </View>
   );
 };
 
-export default pharmaciesRoute;
+export default HospitalsRoute;
 
 const styles = StyleSheet.create({
   selectedCard: {

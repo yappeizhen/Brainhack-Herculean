@@ -171,7 +171,7 @@ function CustomNavigationBar({ navigation, previous }) {
   return (
     <Appbar.Header>
       {previous ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
-      <Appbar.Content title="World Updates" />
+      <Appbar.Content title="COVID-19 Updates" />
       <Appbar.Action
         icon="magnify"
         onPress={() => console.log("Search places")}
