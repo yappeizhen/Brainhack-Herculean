@@ -1,22 +1,14 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-<<<<<<< HEAD:src/screens/Destinations/Destinations.js
 import { ScrollView, View, StyleSheet, TouchableOpacity } from "react-native";
-import { Appbar, Chip, Divider, Card, Title, Subheading, Paragraph, Caption } from "react-native-paper";
+import { Appbar, Chip, Divider, Card, Title, Subheading, Paragraph, IconButton, Button } from "react-native-paper";
 import CountryRoute from "./Country.js";
 import { regions, asiaDataSet, europeDataSet } from "../../assets/data/destinationData";
 import { createStackNavigator } from "@react-navigation/stack";
+import database from "../config/firebase"
 
 const DestinationsRoute = ({navigation}) => {
 
-=======
-import { ScrollView, View, StyleSheet } from "react-native";
-import { Appbar, Chip, Divider, Card, Title, Subheading, Paragraph, IconButton, Button } from "react-native-paper";
-import { regions, asiaDataSet, europeDataSet } from "./../assets/data/destinationData";
-import database from "../config/firebase"
-
-const DestinationsRoute = () => {
->>>>>>> 40d3e55717c88c45134015b89d81b3d873977c50:src/screens/Destinations.js
   const [selectedRegion, setSelectedRegion] = useState();
   const [countrySet, setCountrySet] = useState(asiaDataSet);
   const [pinned, setPinned] = useState([]);
@@ -84,30 +76,8 @@ const DestinationsRoute = () => {
     let sign = country.casePercentageChange <= 0 ? "" : "+";
     let coloredStyle = country.casePercentageChange <= 0 ? styles.greenDataUnits : styles.redDataUnits;
     return (
-<<<<<<< HEAD:src/screens/Destinations/Destinations.js
       <TouchableOpacity onPress={() => navigation.navigate("CountryScreen", {country:country})}>
         <Card key={country.name} style={styles.topicCard}>
-          <Subheading style={{ textAlign: 'center' }}>{country.name}</Subheading>
-          <Divider />
-          <View style={styles.changeRate}>
-            <Paragraph style={coloredStyle}>{sign}{country.casePercentageChange}%</Paragraph>
-          </View>
-          <View style={styles.dataPair}>
-            <Subheading style={styles.dataValue}>{country.casesPerDay}</Subheading>
-            <Paragraph style={styles.dataUnits}>Cases /day</Paragraph>
-          </View>
-          <View style={styles.dataPair}>
-            <Subheading style={styles.dataValue}>{country.deathsPerDay}</Subheading>
-            <Paragraph style={styles.dataUnits}>Deaths /day</Paragraph>
-          </View>
-          <View style={styles.dataPair}>
-            <Subheading style={styles.dataValue}>{country.percentageVaccinated}%</Subheading>
-            <Paragraph style={styles.dataUnits}>Vaccinated</Paragraph>
-          </View>
-        </Card>
-        </TouchableOpacity>
-=======
-      <Card key={country.name} style={styles.topicCard}>
         <Subheading style={{ textAlign: 'center' }}>{country.name}</Subheading>
         <Divider />
         <View style={styles.changeRate}>
@@ -127,7 +97,7 @@ const DestinationsRoute = () => {
         </View>
         {isPinnedCountry(country)}
       </Card>
->>>>>>> 40d3e55717c88c45134015b89d81b3d873977c50:src/screens/Destinations.js
+        </TouchableOpacity>
     );
   })
 
