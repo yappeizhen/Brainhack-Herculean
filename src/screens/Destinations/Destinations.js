@@ -5,7 +5,7 @@ import { Appbar, Chip, Divider, Card, Title, Subheading, Paragraph, Caption, Ico
 import CountryRoute from "./Country.js";
 import { regions, asiaDataSet, europeDataSet } from "../../assets/data/destinationData";
 import { createStackNavigator } from "@react-navigation/stack";
-import database from "../../config/firebase"
+import database from "../config/firebase"
 
 const DestinationsRoute = ({navigation}) => {
 
