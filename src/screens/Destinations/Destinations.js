@@ -14,11 +14,7 @@ import {
   Button,
 } from "react-native-paper";
 import CountryRoute from "./Country.js";
-import {
-  regions,
-  asiaDataSet,
-  europeDataSet,
-} from "../../assets/data/destinationData";
+import { regions } from "../../assets/data/destinationData";
 import { createStackNavigator } from "@react-navigation/stack";
 import database from "../../config/firebase";
 
