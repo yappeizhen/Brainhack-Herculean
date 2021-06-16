@@ -64,7 +64,7 @@ const DestinationsRoute = () => {
   let regionsDisplay = regions.map((region) => {
     const regionChipStyle = selectedRegion === region ? styles.selectedChip : styles.unselectedChip
     return (
-      <Chip key={region.name} style={regionChipStyle} icon="chart-bell-curve" mode="outlined" onPress={() => handleSelectRegion(region)}>{region.name}</Chip>
+      <Chip key={region.name} style={regionChipStyle} mode="outlined" onPress={() => handleSelectRegion(region)}>{region.name}</Chip>
     );
   })
 
