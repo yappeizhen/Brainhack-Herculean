@@ -127,26 +127,26 @@ const DestinationsRoute = ({ navigation }) => {
     );
   });
 
-  const countryDataDisplay = countriesToView.map((country) => {
+  const countryDataDisplay = countriesToView.map((place) => {
 
     return (
-      <TouchableOpacity key={country.country} style={styles.clickableContainer} onPress={() => navigation.navigate("CountryScreen", { country: country })}>
+      <TouchableOpacity key={place.country} style={styles.clickableContainer} onPress={() => navigation.navigate("CountryScreen", { country: place })}>
         <Card style={styles.topicCard}>
-          <Subheading style={{ textAlign: 'center' }}>{country.country}</Subheading>
+          <Subheading style={{ textAlign: 'center' }}>{place.country}</Subheading>
           <Divider />
           <View style={styles.dataPair}>
-            <Subheading style={styles.dataValue}>{parseInt(country.casesPerDay)}</Subheading>
-            <Paragraph style={styles.dataUnits}>Cases /day</Paragraph>
+            <Subheading style={styles.dataValue}>{parseInt(place.casesPerDay)}</Subheading>
+            <Paragraph style={styles.dataUnits}>cases /day</Paragraph>
           </View>
           <View style={styles.dataPair}>
-            <Subheading style={styles.dataValue}>{parseFloat(country.casesPer100k).toFixed(2)}</Subheading>
-            <Paragraph style={styles.dataUnits}>Deaths /day</Paragraph>
+            <Subheading style={styles.dataValue}>{parseFloat(place.casesPer100k).toFixed(2)}</Subheading>
+            <Paragraph style={styles.dataUnits}>cases /100k</Paragraph>
           </View>
           <View style={styles.dataPair}>
-            <Subheading style={styles.dataValue}>{parseFloat(country.percentageVaccinated).toFixed(1)}%</Subheading>
-            <Paragraph style={styles.dataUnits}>Vaccinated</Paragraph>
+            <Subheading style={styles.dataValue}>{parseFloat(place.percentageVaccinated).toFixed(1)}%</Subheading>
+            <Paragraph style={styles.dataUnits}>vaccinated</Paragraph>
           </View>
-          {isPinnedCountry(country)}
+          {isPinnedCountry(place)} 
         </Card>
       </TouchableOpacity>
     );
