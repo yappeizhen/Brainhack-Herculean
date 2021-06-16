@@ -26,10 +26,7 @@ const TestingCentersRoute = () => {
         ? styles.selectedCard
         : styles.unselectedCard;
     return (
-      <Card
-        style={cardStyle}
-        onPress={() => handleSelectedCard(testingCenter)}
-      >
+      <Card style={cardStyle} onPress={() => handleSelectedCard(testingCenter)}>
         <Subheading style={{ textAlign: "center" }}>
           {testingCenter.name}
         </Subheading>
@@ -46,7 +43,12 @@ const TestingCentersRoute = () => {
           onPress={() => console.log("Search places")}
         />
       </Appbar.Header>
-      <Divider />
+      <Image
+        style={styles.image}
+        source={{
+          uri: "https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg",
+        }}
+      ></Image>
       <ScrollView contentContainerStyle={styles.scrollableSection}>
         <Title style={{ width: "100%", paddingLeft: 20 }}>
           Testing Centers
@@ -84,6 +86,10 @@ const styles = StyleSheet.create({
     marginLeft: "6%",
     marginBottom: "5%",
     marginTop: 5,
+  },
+  image: {
+    width: "30%",
+    height: "30%",
   },
   // dataPair: {
   //   width: "100%",
