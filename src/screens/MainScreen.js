@@ -2,7 +2,7 @@ import * as React from "react";
 import { BottomNavigation } from "react-native-paper";
 import DestinationsScreen from "./Destinations";
 import SearchScreen from "./Search";
-import UploadScreen from "./Upload";
+import UploadScreen from "./Centers";
 import ChatScreen from "./Chat";
 import ProfileScreen from "./Profile";
 
