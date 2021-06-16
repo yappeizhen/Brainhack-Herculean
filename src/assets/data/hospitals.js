@@ -2,16 +2,21 @@ export const hospitals = [
   {
     name: "Singapore General Hospital",
     country: "Singapore",
-    address: "450 Jurong East Street 21, Singapore 609604",
+    address: "Outram Rd, Singapore 169608",
   },
   {
-    name: "Chang General Hospital",
+    name: "Changi General Hospital",
     country: "Singapore",
-    address: "20 Pasir Ris Street 51, Singapore 518902",
+    address: "2 Simei Street 3, Singapore 529889",
   },
   {
     name: "National University Hospital",
     country: "Singapore",
-    address: "8 Ang Mo Kio Street 54, Singapore 569185",
+    address: "5 Lower Kent Ridge Rd, Singapore 119074",
+  },
+  {
+    name: "Tan Tock Sen Hospital",
+    country: "Singapore",
+    address: "11 Jln Tan Tock Seng, Singapore 308433",
   },
 ];
