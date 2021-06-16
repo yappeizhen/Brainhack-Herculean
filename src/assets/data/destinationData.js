@@ -76,14 +76,14 @@ export const europeDataSet = [
 
 export const asiaDataSet = [
     {
-        name: "China",
+        name: "Hong Kong",
         casePercentageChange: -1.0,
-        casesPerDay: 29000,
+        casesPerDay: 217,
         deathsPerDay: 100,
         percentageVaccinated: 6.3,
     },
     {
-        name: "Japan",
+        name: "Brunei",
         casePercentageChange: -2.0,
         casesPerDay: 390,
         deathsPerDay: 20,
@@ -92,7 +92,7 @@ export const asiaDataSet = [
     {
         name: "South Korea",
         casePercentageChange: 8.0,
-        casesPerDay: 40500,
+        casesPerDay: 405,
         deathsPerDay: 30,
         percentageVaccinated: 80,
     },
