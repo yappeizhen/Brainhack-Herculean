@@ -27,7 +27,7 @@ const TestingCentersRoute = () => {
         : styles.unselectedCard;
     return (
       <Card
-        style={styles.cardStyle}
+        style={cardStyle}
         onPress={() => handleSelectedCard(testingCenter)}
       >
         <Subheading style={{ textAlign: "center" }}>
