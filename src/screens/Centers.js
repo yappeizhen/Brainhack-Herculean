@@ -87,6 +87,10 @@ const TestingCentersRoute = () => {
         <Subheading style={{ textAlign: "center" }}>
           {testingCenter.name}
         </Subheading>
+        <Divider />
+        <View style={styles.address}>
+          <Paragraph>{testingCenter.address}</Paragraph>
+        </View>
       </Card>
     );
   });
@@ -101,6 +105,7 @@ const TestingCentersRoute = () => {
         />
       </Appbar.Header>
       {DisplayAnImage()}
+      <Divider style={styles.divider} />
       <ScrollView contentContainerStyle={styles.scrollableSection}>
         <Title style={{ width: "100%", paddingLeft: 20 }}>
           Testing Centers
@@ -140,24 +145,18 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
     marginTop: 5,
   },
+  address: {
+    alignItems: "flex-end",
+    marginBottom: -5,
+    // marginRight: 50,
+    paddingTop: 8,
+  },
+  divider: {
+    borderWidth: 1,
+  },
   image: {
     width: 300,
-    height: 300,
+    height: 180,
     alignSelf: "center",
   },
-  // dataPair: {
-  //   width: "100%",
-  //   alignItems: "center",
-  //   flexDirection: "row",
-  //   paddingTop: 5,
-  // },
-  // dataValue: {
-  //   alignItems: "center",
-  //   fontWeight: "700",
-  //   paddingRight: 10,
-  // },
-  // dataUnits: {
-  //   paddingTop: 8,
-  //   fontSize: 12,
-  // },
 });
