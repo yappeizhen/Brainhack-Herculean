@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { ScrollView, View, StyleSheet } from "react-native";
-import { Appbar, Chip, Divider, Card, Title, Subheading, Paragraph, IconButton } from "react-native-paper";
+import { Appbar, Chip, Divider, Card, Title, Subheading, Paragraph, IconButton, Button } from "react-native-paper";
 import { regions, asiaDataSet, europeDataSet } from "./../assets/data/destinationData";
 import database from "../config/firebase"
 
@@ -106,9 +106,7 @@ const DestinationsRoute = () => {
       </Appbar.Header>
       <View style={styles.section}>
         {regionsDisplay}
-        {/* <Chip style={styles.unselectedChip} icon="chart-bell-curve" mode="outlined" onPress={() => console.log('Pressed Chip')}>Economics</Chip>
-        <Chip style={styles.selectedChip} icon="xml" mode="outlined" onPress={() => console.log('Pressed Chip')}>Computer Science</Chip>
-        <Chip style={styles.unselectedChip} icon="hammer-screwdriver" mode="outlined" onPress={() => console.log('Pressed Chip')}>Mechanical Engineering</Chip> */}
+        <Button icon="refresh" onPress={() => setSelectedRegion()}/>
       </View>
       <Divider />
       <ScrollView contentContainerStyle={styles.scrollableSection}>
