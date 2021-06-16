@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { ScrollView, View, StyleSheet, TouchableOpacity } from "react-native";
+import { ScrollView, View, StyleSheet, Image } from "react-native";
 import {
   Appbar,
   Chip,
@@ -18,6 +18,20 @@ const TestingCentersRoute = () => {
 
   const handleSelectedCard = (testingCenter) => {
     setSelectedTestingCenter(testingCenter);
+  };
+
+  const getImgSrc = (selectedTestingCenter) => {
+    if (selectedTestingCenter.name === "Former Shu Qun Secondary School") {
+      return "https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg";
+    } else if (selectedTestingCenter.name === "Former Coral Primary School") {
+      return "https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/dog_cool_summer_slideshow/1800x1200_dog_cool_summer_other.jpg";
+    } else if (selectedTestingCenter.name === "Former Da Qiao Primary School") {
+      return "https://images.theconversation.com/files/319375/original/file-20200309-118956-1cqvm6j.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=900.0&fit=crop";
+    } else if (selectedTestingCenter.name === "Former Bedok North Secondary") {
+      return "https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg";
+    } else {
+      return "https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/dog_cool_summer_slideshow/1800x1200_dog_cool_summer_other.jpg";
+    }
   };
 
   const testingCentersDisplay = testingCenters.map((testingCenter) => {
@@ -46,7 +60,7 @@ const TestingCentersRoute = () => {
       <Image
         style={styles.image}
         source={{
-          uri: "https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg",
+          uri: getImgSrc(setSelectedTestingCenter),
         }}
       ></Image>
       <ScrollView contentContainerStyle={styles.scrollableSection}>
@@ -70,7 +84,8 @@ const styles = StyleSheet.create({
     marginLeft: "6%",
     marginBottom: "5%",
     marginTop: 5,
-    backgroundColor: "green",
+    borderWidth: 2,
+    borderColor: "green",
   },
   scrollableSection: {
     alignItems: "center",
@@ -88,8 +103,9 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   image: {
-    width: "30%",
-    height: "30%",
+    width: 300,
+    height: 300,
+    alignSelf: "center",
   },
   // dataPair: {
   //   width: "100%",
