@@ -5,9 +5,9 @@ import { Appbar, Chip, Divider, Card, Title, Subheading, Paragraph, IconButton, 
 import CountryRoute from "./Country.js";
 import { regions, asiaDataSet, europeDataSet } from "../../assets/data/destinationData";
 import { createStackNavigator } from "@react-navigation/stack";
-import database from "../config/firebase"
+import database from "../../config/firebase"
 
-const DestinationsRoute = ({navigation}) => {
+const DestinationsRoute = ({ navigation }) => {
 
   const [selectedRegion, setSelectedRegion] = useState();
   const [countrySet, setCountrySet] = useState(asiaDataSet);
@@ -76,28 +76,28 @@ const DestinationsRoute = ({navigation}) => {
     let sign = country.casePercentageChange <= 0 ? "" : "+";
     let coloredStyle = country.casePercentageChange <= 0 ? styles.greenDataUnits : styles.redDataUnits;
     return (
-      <TouchableOpacity onPress={() => navigation.navigate("CountryScreen", {country:country})}>
+      <TouchableOpacity style={styles.clickableContainer} onPress={() => navigation.navigate("CountryScreen", { country: country })}>
         <Card key={country.name} style={styles.topicCard}>
-        <Subheading style={{ textAlign: 'center' }}>{country.name}</Subheading>
-        <Divider />
-        <View style={styles.changeRate}>
-          <Paragraph style={coloredStyle}>{sign}{country.casePercentageChange}%</Paragraph>
-        </View>
-        <View style={styles.dataPair}>
-          <Subheading style={styles.dataValue}>{country.casesPerDay}</Subheading>
-          <Paragraph style={styles.dataUnits}>Cases /day</Paragraph>
-        </View>
-        <View style={styles.dataPair}>
-          <Subheading style={styles.dataValue}>{country.deathsPerDay}</Subheading>
-          <Paragraph style={styles.dataUnits}>Deaths /day</Paragraph>
-        </View>
-        <View style={styles.dataPair}>
-          <Subheading style={styles.dataValue}>{country.percentageVaccinated}%</Subheading>
-          <Paragraph style={styles.dataUnits}>Vaccinated</Paragraph>
-        </View>
-        {isPinnedCountry(country)}
-      </Card>
-        </TouchableOpacity>
+          <Subheading style={{ textAlign: 'center' }}>{country.name}</Subheading>
+          <Divider />
+          <View style={styles.changeRate}>
+            <Paragraph style={coloredStyle}>{sign}{country.casePercentageChange}%</Paragraph>
+          </View>
+          <View style={styles.dataPair}>
+            <Subheading style={styles.dataValue}>{country.casesPerDay}</Subheading>
+            <Paragraph style={styles.dataUnits}>Cases /day</Paragraph>
+          </View>
+          <View style={styles.dataPair}>
+            <Subheading style={styles.dataValue}>{country.deathsPerDay}</Subheading>
+            <Paragraph style={styles.dataUnits}>Deaths /day</Paragraph>
+          </View>
+          <View style={styles.dataPair}>
+            <Subheading style={styles.dataValue}>{country.percentageVaccinated}%</Subheading>
+            <Paragraph style={styles.dataUnits}>Vaccinated</Paragraph>
+          </View>
+          {isPinnedCountry(country)}
+        </Card>
+      </TouchableOpacity>
     );
   })
 
@@ -105,7 +105,7 @@ const DestinationsRoute = ({navigation}) => {
     <View style={{ flex: 1 }}>
       <View style={styles.section}>
         {regionsDisplay}
-        <Button icon="refresh" onPress={() => setSelectedRegion()}/>
+        <Button icon="refresh" onPress={() => setSelectedRegion()} />
       </View>
       <Divider />
       <ScrollView contentContainerStyle={styles.scrollableSection}>
@@ -121,11 +121,11 @@ function CustomNavigationBar({ navigation, previous }) {
     <Appbar.Header>
       {previous ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
       <Appbar.Content title="World Updates" />
-        <Appbar.Action
-          icon="magnify"
-          onPress={() => console.log("Search places")}
-        />
-      </Appbar.Header>
+      <Appbar.Action
+        icon="magnify"
+        onPress={() => console.log("Search places")}
+      />
+    </Appbar.Header>
   );
 }
 
@@ -134,10 +134,10 @@ const Stack = createStackNavigator();
 export default function DestinationsStack() {
   return (
     <Stack.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          header: (props) => <CustomNavigationBar {...props} />,
-        }}>
+      initialRouteName="Home"
+      screenOptions={{
+        header: (props) => <CustomNavigationBar {...props} />,
+      }}>
       <Stack.Screen name="DestinationsScreen" component={DestinationsRoute} />
       <Stack.Screen name="CountryScreen" component={CountryRoute} />
     </Stack.Navigator>
@@ -145,6 +145,9 @@ export default function DestinationsStack() {
 }
 
 const styles = StyleSheet.create({
+  clickableContainer: {
+    width: '100%',
+  },
   container: {
     flex: 1,
     alignItems: "center",
