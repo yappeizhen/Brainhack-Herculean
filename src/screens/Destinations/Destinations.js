@@ -5,23 +5,23 @@ import { Appbar, Chip, Divider, Card, Title, Subheading, Paragraph, Caption, Ico
 import CountryRoute from "./Country.js";
 import { regions, asiaDataSet, europeDataSet } from "../../assets/data/destinationData";
 import { createStackNavigator } from "@react-navigation/stack";
-import database from "../config/firebase"
+//import database from "../config/firebase"
 
 const DestinationsRoute = ({navigation}) => {
 
   const [selectedRegion, setSelectedRegion] = useState();
   const [countrySet, setCountrySet] = useState(asiaDataSet);
   const [pinned, setPinned] = useState([]);
-  useEffect(() => {
-    const ref = database.ref();
-    ref.child("countries").get().then(snapshot => {
-      if (snapshot.exists()) {
-        const snapshots = snapshot.val()
-        const countries = Object.keys(snapshots).map(key => ({ country: key, ...snapshots[key] }))
-        console.log(countries)
-      }
-    })
-  }, [])
+  // useEffect(() => {
+  //   const ref = database.ref();
+  //   ref.child("countries").get().then(snapshot => {
+  //     if (snapshot.exists()) {
+  //       const snapshots = snapshot.val()
+  //       const countries = Object.keys(snapshots).map(key => ({ country: key, ...snapshots[key] }))
+  //       console.log(countries)
+  //     }
+  //   })
+  // }, [])
 
   const pinCountry = (country) => {
     setPinned([...pinned, country])
