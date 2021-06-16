@@ -65,7 +65,7 @@ const pharmaciesRoute = () => {
         ? styles.selectedCard
         : styles.unselectedCard;
     return (
-      <Card style={cardStyle} onPress={() => handleSelectedCard(pharmacy)}>
+      <Card key={pharmacy.name} style={cardStyle} onPress={() => handleSelectedCard(pharmacy)}>
         <Subheading style={{ textAlign: "center" }}>{pharmacy.name}</Subheading>
         <Divider />
         <View style={styles.address}>

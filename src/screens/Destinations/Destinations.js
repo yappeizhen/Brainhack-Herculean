@@ -24,8 +24,10 @@ import database from "../../config/firebase";
 
 const DestinationsRoute = ({ navigation }) => {
   const [selectedRegion, setSelectedRegion] = useState();
-  const [countrySet, setCountrySet] = useState(asiaDataSet);
+  const [allCountries, setAllCountries] = useState([]);
+  const [countriesToView, setCountriesToView] = useState([]);
   const [pinned, setPinned] = useState([]);
+
   useEffect(() => {
     const ref = database.ref();
     ref
@@ -39,15 +41,17 @@ const DestinationsRoute = ({ navigation }) => {
             ...snapshots[key],
           }));
           console.log(countries);
+          setAllCountries(countries);
+          setCountriesToView(countries);
         }
       });
   }, []);
 
   const pinCountry = (country) => {
     setPinned([...pinned, country]);
-    setCountrySet([
+    setCountriesToView([
       country,
-      ...countrySet.filter((item) => {
+      ...countriesToView.filter((item) => {
         return item !== country;
       }),
     ]);
@@ -59,8 +63,8 @@ const DestinationsRoute = ({ navigation }) => {
         return item !== country;
       })
     );
-    setCountrySet([
-      ...countrySet.filter((item) => {
+    setCountriesToView([
+      ...countriesToView.filter((item) => {
         return item !== country;
       }),
       country,
@@ -99,52 +103,47 @@ const DestinationsRoute = ({ navigation }) => {
 
   const handleSelectRegion = (region) => {
     setSelectedRegion(region);
-    if (region.name === "Asia") {
-      setCountrySet(asiaDataSet);
-    } else {
-      setCountrySet(europeDataSet);
-    }
+    setCountriesToView(allCountries.filter((country) => (country.continent === region)));
   };
+
+  const handleRefresh = () => {
+    setSelectedRegion();
+    let unpinnedCountries = allCountries.filter((country) => (!pinnedContains(country)));
+    setCountriesToView(allCountries);
+  }
 
   let regionsDisplay = regions.map((region) => {
     const regionChipStyle =
       selectedRegion === region ? styles.selectedChip : styles.unselectedChip;
     return (
       <Chip
-        key={region.name}
+        key={region}
         style={regionChipStyle}
         mode="outlined"
         onPress={() => handleSelectRegion(region)}
       >
-        {region.name}
+        {region}
       </Chip>
     );
   });
 
-  const countryDataDisplay = countrySet.map((country) => {
-    let sign = country.casePercentageChange <= 0 ? "" : "+";
-    let coloredStyle =
-      country.casePercentageChange <= 0
-        ? styles.greenDataUnits
-        : styles.redDataUnits;
+  const countryDataDisplay = countriesToView.map((country) => {
+
     return (
-      <TouchableOpacity style={styles.clickableContainer} onPress={() => navigation.navigate("CountryScreen", { country: country })}>
-        <Card key={country.name} style={styles.topicCard}>
-          <Subheading style={{ textAlign: 'center' }}>{country.name}</Subheading>
+      <TouchableOpacity key={country.country} style={styles.clickableContainer} onPress={() => navigation.navigate("CountryScreen", { country: country })}>
+        <Card style={styles.topicCard}>
+          <Subheading style={{ textAlign: 'center' }}>{country.country}</Subheading>
           <Divider />
-          <View style={styles.changeRate}>
-            <Paragraph style={coloredStyle}>{sign}{country.casePercentageChange}%</Paragraph>
-          </View>
           <View style={styles.dataPair}>
-            <Subheading style={styles.dataValue}>{country.casesPerDay}</Subheading>
+            <Subheading style={styles.dataValue}>{parseInt(country.casesPerDay)}</Subheading>
             <Paragraph style={styles.dataUnits}>Cases /day</Paragraph>
           </View>
           <View style={styles.dataPair}>
-            <Subheading style={styles.dataValue}>{country.deathsPerDay}</Subheading>
+            <Subheading style={styles.dataValue}>{parseFloat(country.casesPer100k).toFixed(2)}</Subheading>
             <Paragraph style={styles.dataUnits}>Deaths /day</Paragraph>
           </View>
           <View style={styles.dataPair}>
-            <Subheading style={styles.dataValue}>{country.percentageVaccinated}%</Subheading>
+            <Subheading style={styles.dataValue}>{parseFloat(country.percentageVaccinated).toFixed(1)}%</Subheading>
             <Paragraph style={styles.dataUnits}>Vaccinated</Paragraph>
           </View>
           {isPinnedCountry(country)}
@@ -157,7 +156,7 @@ const DestinationsRoute = ({ navigation }) => {
     <View style={{ flex: 1 }}>
       <View style={styles.section}>
         {regionsDisplay}
-        <Button icon="refresh" onPress={() => setSelectedRegion()} />
+        <Button icon="refresh" onPress={handleRefresh} />
       </View>
       <Divider />
       <ScrollView contentContainerStyle={styles.scrollableSection}>
@@ -197,9 +196,6 @@ export default function DestinationsStack() {
 }
 
 const styles = StyleSheet.create({
-  clickableContainer: {
-    width: '100%',
-  },
   container: {
     flex: 1,
     alignItems: "center",
@@ -232,9 +228,12 @@ const styles = StyleSheet.create({
   },
   topicCard: {
     flexDirection: "row",
-    padding: "3%",
-    width: "40%",
-    height: 210,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 5,
+    paddingRight: 5,
+    width: 155,
+    height: 180,
     marginLeft: "6%",
     marginBottom: "5%",
     marginTop: 5,
@@ -244,6 +243,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     paddingTop: 5,
+    paddingLeft: '10%',
+    paddingRight: '10%',
   },
   dataValue: {
     alignItems: "center",
@@ -251,15 +252,18 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   dataUnits: {
+    alignItems: "center",
     paddingTop: 2,
     fontSize: 12,
   },
   redDataUnits: {
+    alignItems: "center",
     paddingTop: 2,
     fontSize: 12,
     color: "#e60000",
   },
   greenDataUnits: {
+    alignItems: "center",
     paddingTop: 2,
     fontSize: 12,
     color: "#00b300",

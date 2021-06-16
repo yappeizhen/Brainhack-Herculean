@@ -1,26 +1,5 @@
-export const regions = [
-    {
-        name: "Asia"
-    },
-    {
-        name: "Australia"
-    },
-    {
-        name: "Europe"
-    },
-    {
-        name: "North America"
-    },
-    {
-        name: "Africa"
-    },
-    {
-        name: "South America"
-    },
-    {
-        name: "Antartica"
-    },
-]
+export const regions = ["Asia", "Oceania", "Europe", "North America", "Africa", "South America"
+, "Antartica"]
 
 export const europeDataSet = [
     {
