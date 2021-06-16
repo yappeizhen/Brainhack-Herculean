@@ -6,6 +6,7 @@ const ProfileRoute = (props) => (
   <SafeAreaView style={styles.container}>
     <Title>This is my portfolio</Title>
   </SafeAreaView>
+  
 );
 export default withTheme(ProfileRoute);
 

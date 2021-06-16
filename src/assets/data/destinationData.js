@@ -95,6 +95,21 @@ export const asiaDataSet = [
         casesPerDay: 40500,
         deathsPerDay: 30,
         percentageVaccinated: 80,
+        proto: {
+            Rule1: "Fully vaccinated" ,
+            Rule2: "Negative coronavirus test taken 48 hours prior to arrival",
+            Rule3: "No travel outisde country of origin in the previous 14 days",
+        },
+        distancing: {
+            Rule1: "Fully vaccinated" ,
+            Rule2: "Negative coronavirus test taken 48 hours prior to arrival",
+            Rule3: "No travel outisde country of origin in the previous 14 days",
+        },
+        reco: {
+            Rule1: "Fully vaccinated" ,
+            Rule2: "Negative coronavirus test taken 48 hours prior to arrival",
+            Rule3: "No travel outisde country of origin in the previous 14 days",
+        },
     },
     {
         name: "Singapore",

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { BottomNavigation } from "react-native-paper";
-import DestinationsScreen from "./Destinations";
+import DestinationsScreen from "./Destinations/Destinations";
+import { NavigationContainer } from "@react-navigation/native";
 import SearchScreen from "./Search";
 import UploadScreen from "./Upload";
 import ChatScreen from "./Chat";
@@ -25,11 +26,14 @@ const Main = () => {
   });
 
   return (
-    <BottomNavigation
+    <NavigationContainer>
+      <BottomNavigation
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
       renderScene={renderScene}
     />
+    </NavigationContainer>
+    
   );
 };
 
