@@ -71,6 +71,9 @@ const HospitalsRoute = () => {
         <View style={styles.address}>
           <Paragraph>{hospital.address}</Paragraph>
         </View>
+        <View style={styles.address}>
+          <Paragraph>{hospital.distance}km</Paragraph>
+        </View>
       </Card>
     );
   });
@@ -78,7 +81,7 @@ const HospitalsRoute = () => {
   return (
     <View style={{ flex: 1 }}>
       <Appbar.Header>
-        <Appbar.Content title="Hospitals" />
+        <Appbar.Content title="Hospitals Near You" />
         <Appbar.Action
           icon="magnify"
           onPress={() => console.log("Search places")}

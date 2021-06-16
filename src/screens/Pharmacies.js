@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ScrollView, View, StyleSheet, Image } from "react-native";
 import {
   Appbar,
@@ -9,90 +9,73 @@ import {
   Title,
   Subheading,
   Paragraph,
-  Caption,
 } from "react-native-paper";
-import { testingCenters } from "../assets/data/testingCenters";
+import { pharmacies } from "../assets/data/pharmacies";
 
-const TestingCentersRoute = () => {
-  const [selectedTestingCenter, setSelectedTestingCenter] = useState(null);
+const pharmaciesRoute = () => {
+  const [selectedPharmacy, setSelectedpharmacy] = useState(null);
 
-  const handleSelectedCard = (testingCenter) => {
-    setSelectedTestingCenter(testingCenter);
-  };
-
-  const getImgSrc = (selectedTestingCenter) => {
-    if (selectedTestingCenter === null) {
-      return "../images/419612.png";
-    } else if (
-      selectedTestingCenter.name === "Former Shu Qun Secondary School"
-    ) {
-      return "../images/609604.png";
-    } else if (selectedTestingCenter.name === "Former Coral Primary School") {
-      return "../images/518902.png";
-    } else if (selectedTestingCenter.name === "Former Da Qiao Primary School") {
-      return "../images/569185.png";
-    } else if (selectedTestingCenter.name === "Former Bedok North Secondary") {
-      return "../images/419612.png";
-    }
+  const handleSelectedCard = (pharmacy) => {
+    setSelectedpharmacy(pharmacy);
   };
 
   const DisplayAnImage = () => {
-    if (selectedTestingCenter === null) {
+    if (selectedPharmacy === null) {
       return (
         <Image
           style={styles.image}
           source={require("../images/sg.png")}
         ></Image>
       );
-    } else if (
-      selectedTestingCenter.name === "Former Shu Qun Secondary School"
-    ) {
+    } else if (selectedPharmacy.name === "Unity Kallang Bahru") {
       return (
         <Image
           style={styles.image}
-          source={require("../images/609604.png")}
+          source={require("../images/330071.png")}
         ></Image>
       );
-    } else if (selectedTestingCenter.name === "Former Coral Primary School") {
+    } else if (selectedPharmacy.name === "Farrer Park Pharmacy") {
       return (
         <Image
           style={styles.image}
-          source={require("../images/518902.png")}
+          source={require("../images/217562.png")}
         ></Image>
       );
-    } else if (selectedTestingCenter.name === "Former Da Qiao Primary School") {
+    } else if (selectedPharmacy.name === "Alchemy Pharmacy") {
       return (
         <Image
           style={styles.image}
-          source={require("../images/569185.png")}
+          source={require("../images/510258.png")}
         ></Image>
       );
     } else {
       return (
         <Image
           style={styles.image}
-          source={require("../images/419612.png")}
+          source={require("../images/527201.png")}
         ></Image>
       );
     }
   };
 
-  const testingCentersDisplay = testingCenters.map((testingCenter) => {
+  const pharmaciesDisplay = pharmacies.map((pharmacy) => {
     const cardStyle =
-      selectedTestingCenter === testingCenter
+      selectedPharmacy === pharmacy
         ? styles.selectedCard
         : styles.unselectedCard;
     return (
-      <Card style={cardStyle} onPress={() => handleSelectedCard(testingCenter)}>
-        <Subheading style={{ textAlign: "center" }}>
-          {testingCenter.name}
-        </Subheading>
+      <Card
+        key={pharmacy.name}
+        style={cardStyle}
+        onPress={() => handleSelectedCard(pharmacy)}
+      >
+        <Subheading style={{ textAlign: "center" }}>{pharmacy.name}</Subheading>
         <Divider />
         <View style={styles.address}>
-          <Paragraph>{testingCenter.address}</Paragraph>
+          <Paragraph>{pharmacy.address}</Paragraph>
         </View>
         <View style={styles.address}>
-          <Paragraph>{testingCenter.distance}km</Paragraph>
+          <Paragraph>{pharmacy.distance}km</Paragraph>
         </View>
       </Card>
     );
@@ -101,7 +84,7 @@ const TestingCentersRoute = () => {
   return (
     <View style={{ flex: 1 }}>
       <Appbar.Header>
-        <Appbar.Content title="Testing Centers Near You" />
+        <Appbar.Content title="Pharmacies Near You" />
         <Appbar.Action
           icon="magnify"
           onPress={() => console.log("Search places")}
@@ -110,16 +93,14 @@ const TestingCentersRoute = () => {
       {DisplayAnImage()}
       <Divider style={styles.divider} />
       <ScrollView contentContainerStyle={styles.scrollableSection}>
-        <Title style={{ width: "100%", paddingLeft: 20 }}>
-          Testing Centers
-        </Title>
-        {testingCentersDisplay}
+        <Title style={{ width: "100%", paddingLeft: 20 }}>Pharmacies</Title>
+        {pharmaciesDisplay}
       </ScrollView>
     </View>
   );
 };
 
-export default TestingCentersRoute;
+export default pharmaciesRoute;
 
 const styles = StyleSheet.create({
   selectedCard: {

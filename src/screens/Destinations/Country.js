@@ -6,18 +6,15 @@ import { regions, asiaDataSet, europeDataSet } from "../../assets/data/destinati
 import { List } from 'react-native-paper';
 
 
-const CountryRoute = ({navigation, route }) => {
- 
-  const {country} = route.params;
-  let sign = country.casePercentageChange <= 0 ? "" : "+";
-  let coloredStyle = country.casePercentageChange <= 0 ? styles.greenDataUnits : styles.redDataUnits;
+const CountryRoute = ({ route }) => {
 
-  function countryDetailDisplay(country) {
-    let sign = country.casePercentageChange <= 0 ? "" : "+";
-    let coloredStyle = country.casePercentageChange <= 0 ? styles.greenDataUnits : styles.redDataUnits;
+  const { country } = route.params;
+  
+  function countryDetailDisplay() {
+   
     return (
-      <Card key={country.name} style={styles.topicCard}>
-        <Subheading style={{ textAlign: 'center' }}>{country.name}</Subheading>
+      <Card key={country.country} style={styles.topicCard}>
+        <Subheading style={{ textAlign: 'center' }}>{country.country}</Subheading>
         <Divider />
         <Image
           style={styles.graphPic}
@@ -26,91 +23,81 @@ const CountryRoute = ({navigation, route }) => {
               'https://filmdaily.co/wp-content/uploads/2020/04/cute-cat-videos-lede.jpg',
           }}
         />
-        <View style={[styles.container, {flexDirection: "row"}, {justifyContent:"space-around"}, {alignItems: "center",}]}>
-        <View style={styles.messageBox}>
-                        <View>
-                            <Text style={styles.messageBoxTitleText}>{country.casesPerDay}</Text>
-                        </View>
-                        <View>
-                            <Text style={styles.messageBoxBodyText}>cases/day</Text>
-                        </View>
-                    </View>
-        <View style={styles.messageBox}>
-                        <View>
-                            <Text style={styles.messageBoxTitleText}>{country.deathsPerDay}</Text>
-                        </View>
-                        <View>
-                            <Text style={styles.messageBoxBodyText}>deaths/day</Text>
-                        </View>
-                    </View>
-                    <View style={styles.messageBox}>
-                        <View>
-                            <Text style={styles.messageBoxTitleText}>{country.percentageVaccinated}%</Text>
-                        </View>
-                        <View>
-                            <Text style={styles.messageBoxBodyText}>% vaccinated</Text>
-                        </View>
-                    </View>
-                    </View>
+        <View style={[styles.container, { flexDirection: "row" }, { justifyContent: "space-around" }, { alignItems: "center", }]}>
+          <View style={styles.messageBox}>
+            <View>
+              <Text style={styles.messageBoxTitleText}>{country.casesPerDay}</Text>
+            </View>
+            <View>
+              <Text style={styles.messageBoxBodyText}>cases/day</Text>
+            </View>
+          </View>
+          <View style={styles.messageBox}>
+            <View>
+              <Text style={styles.messageBoxTitleText}>{country.casesPer100k}</Text>
+            </View>
+            <View>
+              <Text style={styles.messageBoxBodyText}>cases /100k</Text>
+            </View>
+          </View>
+          <View style={styles.messageBox}>
+            <View>
+              <Text style={styles.messageBoxTitleText}>{country.percentageVaccinated}%</Text>
+            </View>
+            <View>
+              <Text style={styles.messageBoxBodyText}>% vaccinated</Text>
+            </View>
+          </View>
+        </View>
       </Card>
     );
   }
 
-  const MyComponent = (country) => {
+  const MyComponent = () => {
     const [expanded, setExpanded] = React.useState(true);
-  
     const handlePress = () => setExpanded(!expanded);
-  
+
+    let countryPoliciesDisplay = () => {
+      console.log(country.policies)
+      return country.policies.map((policy) => {
+        return <List.Item key={policy} title={policy} />
+      })
+    }
+    let countryRequirementsDisplay = () => {
+      return country.requirements.map((rule) => {
+        return <List.Item key={rule} title={rule} />
+      })
+    }
+
     return (
       <List.Section title="Accordions">
         <List.Accordion
           title="Travel Safety Protocol"
           left={props => <List.Icon {...props} icon="folder" />}>
-          <List.Item title={country.proto.Rule1} />
-          <List.Item title={country.proto.Rule2} />
-          <List.Item title={country.proto.Rule3} />
-        </List.Accordion>
-
-        <List.Accordion
-          title="Safe Distancing Measures"
-          left={props => <List.Icon {...props} icon="folder" />}>
-          <List.Item title={country.proto.Rule1} />
-          <List.Item title={country.proto.Rule2} />
-          <List.Item title={country.proto.Rule3} />
-        </List.Accordion>
+          {countryPoliciesDisplay()}
+        </List.Accordion> 
 
         <List.Accordion
           title="Recommended Resources"
           left={props => <List.Icon {...props} icon="folder" />}>
-          <List.Item title={country.proto.Rule1} />
-          <List.Item title={country.proto.Rule2} />
-          <List.Item title={country.proto.Rule3} />
-        </List.Accordion>
-  
-        <List.Accordion
-          title="Controlled Accordion"
-          left={props => <List.Icon {...props} icon="folder" />}
-          expanded={expanded}
-          onPress={handlePress}>
-          <List.Item title="First item" />
-          <List.Item title="Second item" />
+          {countryRequirementsDisplay()}
         </List.Accordion>
       </List.Section>
     );
   };
 
-  return(
+  return (
     <View style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.scrollableSection}>
         <Title style={{ width: '100%', paddingLeft: 20 }}>Countries</Title>
-        {countryDetailDisplay(country)}
+        {countryDetailDisplay()}
         <View style={[styles.accordions]}>
-        <MyComponent style={{ width: '100%', paddingLeft: 20 }}></MyComponent>
+          <MyComponent style={{ width: '100%', paddingLeft: 20 }}></MyComponent>
         </View>
       </ScrollView>
     </View >
   )
-  };
+};
 
 
 export default CountryRoute;
@@ -194,21 +181,21 @@ const styles = StyleSheet.create({
     marginRight: 50,
     paddingTop: 8,
   },
-  messageBox:{
-    width:"25%",
-    backgroundColor:"#fff",
+  messageBox: {
+    width: "25%",
+    backgroundColor: "#fff",
   },
-  messageBoxTitleText:{
-    fontWeight:'bold',
-    color:'#000',
-    textAlign:'center',
-    fontSize:20,
-    marginBottom:10
+  messageBoxTitleText: {
+    fontWeight: 'bold',
+    color: '#000',
+    textAlign: 'center',
+    fontSize: 20,
+    marginBottom: 10
   },
-  messageBoxBodyText:{
-    color:'#000',
-    fontSize:16,
-    textAlign:'center',
+  messageBoxBodyText: {
+    color: '#000',
+    fontSize: 16,
+    textAlign: 'center',
   },
   accordions: {
     height: 900,

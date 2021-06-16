@@ -1,17 +1,39 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { ScrollView, View, StyleSheet, TouchableOpacity } from "react-native";
-import { Appbar, Chip, Divider, Card, Title, Subheading, Paragraph, Caption, IconButton, Button} from "react-native-paper";
+import {
+  Appbar,
+  Chip,
+  Divider,
+  Card,
+  Title,
+  Subheading,
+  Paragraph,
+  Caption,
+  IconButton,
+  Button,
+} from "react-native-paper";
 import CountryRoute from "./Country.js";
-import { regions, asiaDataSet, europeDataSet } from "../../assets/data/destinationData";
+import {
+  regions,
+  asiaDataSet,
+  europeDataSet,
+} from "../../assets/data/destinationData";
 import { createStackNavigator } from "@react-navigation/stack";
+<<<<<<< HEAD
 //import database from "../config/firebase"
 
 const DestinationsRoute = ({navigation}) => {
+=======
+import database from "../../config/firebase";
+>>>>>>> 5afdf66857dd0f747a9677368682d4483fc5c84c
 
+const DestinationsRoute = ({ navigation }) => {
   const [selectedRegion, setSelectedRegion] = useState();
-  const [countrySet, setCountrySet] = useState(asiaDataSet);
+  const [allCountries, setAllCountries] = useState([]);
+  const [countriesToView, setCountriesToView] = useState([]);
   const [pinned, setPinned] = useState([]);
+<<<<<<< HEAD
   // useEffect(() => {
   //   const ref = database.ref();
   //   ref.child("countries").get().then(snapshot => {
@@ -22,22 +44,51 @@ const DestinationsRoute = ({navigation}) => {
   //     }
   //   })
   // }, [])
+=======
+
+  useEffect(() => {
+    const ref = database.ref();
+    ref
+      .child("countries")
+      .get()
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const snapshots = snapshot.val();
+          const countries = Object.keys(snapshots).map((key) => ({
+            country: key,
+            ...snapshots[key],
+          }));
+          console.log(countries);
+          setAllCountries(countries);
+          setCountriesToView(countries);
+        }
+      });
+  }, []);
+>>>>>>> 5afdf66857dd0f747a9677368682d4483fc5c84c
 
   const pinCountry = (country) => {
-    setPinned([...pinned, country])
-    setCountrySet([country, ...countrySet.filter((item) => {
-      return item !== country
-    })]);
-  }
+    setPinned([...pinned, country]);
+    setCountriesToView([
+      country,
+      ...countriesToView.filter((item) => {
+        return item !== country;
+      }),
+    ]);
+  };
 
   const unpinCountry = (country) => {
-    setPinned(pinned.filter((item) => {
-      return item !== country
-    }));
-    setCountrySet([...countrySet.filter((item) => {
-      return item !== country
-    }), country]);
-  }
+    setPinned(
+      pinned.filter((item) => {
+        return item !== country;
+      })
+    );
+    setCountriesToView([
+      ...countriesToView.filter((item) => {
+        return item !== country;
+      }),
+      country,
+    ]);
+  };
 
   var pinnedContains = (country) => {
     for (var i = 0; i < pinned.length; i++) {
@@ -46,86 +97,105 @@ const DestinationsRoute = ({navigation}) => {
       }
     }
     return false;
-  }
+  };
 
   const isPinnedCountry = (country) => {
     if (pinnedContains(country)) {
-      return <IconButton size={20} icon="pin" style={styles.pinIcon} onPress={() => unpinCountry(country)} />
+      return (
+        <IconButton
+          size={20}
+          icon="pin"
+          style={styles.pinIcon}
+          onPress={() => unpinCountry(country)}
+        />
+      );
     }
-    return <IconButton size={20} icon="pin-outline" style={styles.pinIcon} onPress={() => pinCountry(country)} />
-  }
+    return (
+      <IconButton
+        size={20}
+        icon="pin-outline"
+        style={styles.pinIcon}
+        onPress={() => pinCountry(country)}
+      />
+    );
+  };
 
   const handleSelectRegion = (region) => {
     setSelectedRegion(region);
-    if (region.name === 'Asia') {
-      setCountrySet(asiaDataSet)
-    } else {
-      setCountrySet(europeDataSet)
-    }
+    setCountriesToView(allCountries.filter((country) => (country.continent === region)));
+  };
+
+  const handleRefresh = () => {
+    setSelectedRegion();
+    let unpinnedCountries = allCountries.filter((country) => (!pinnedContains(country)));
+    setCountriesToView(allCountries);
   }
 
   let regionsDisplay = regions.map((region) => {
-    const regionChipStyle = selectedRegion === region ? styles.selectedChip : styles.unselectedChip
+    const regionChipStyle =
+      selectedRegion === region ? styles.selectedChip : styles.unselectedChip;
     return (
-      <Chip key={region.name} style={regionChipStyle} mode="outlined" onPress={() => handleSelectRegion(region)}>{region.name}</Chip>
+      <Chip
+        key={region}
+        style={regionChipStyle}
+        mode="outlined"
+        onPress={() => handleSelectRegion(region)}
+      >
+        {region}
+      </Chip>
     );
-  })
+  });
 
+  const countryDataDisplay = countriesToView.map((place) => {
 
-  const countryDataDisplay = countrySet.map((country) => {
-    let sign = country.casePercentageChange <= 0 ? "" : "+";
-    let coloredStyle = country.casePercentageChange <= 0 ? styles.greenDataUnits : styles.redDataUnits;
     return (
-<TouchableOpacity onPress={() => navigation.navigate("CountryScreen", {country:country})}>
-      <Card key={country.name} style={styles.topicCard}>
-        <Subheading style={{ textAlign: 'center' }}>{country.name}</Subheading>
-        <Divider />
-        <View style={styles.changeRate}>
-          <Paragraph style={coloredStyle}>{sign}{country.casePercentageChange}%</Paragraph>
-        </View>
-        <View style={styles.dataPair}>
-          <Subheading style={styles.dataValue}>{country.casesPerDay}</Subheading>
-          <Paragraph style={styles.dataUnits}>Cases /day</Paragraph>
-        </View>
-        <View style={styles.dataPair}>
-          <Subheading style={styles.dataValue}>{country.deathsPerDay}</Subheading>
-          <Paragraph style={styles.dataUnits}>Deaths /day</Paragraph>
-        </View>
-        <View style={styles.dataPair}>
-          <Subheading style={styles.dataValue}>{country.percentageVaccinated}%</Subheading>
-          <Paragraph style={styles.dataUnits}>Vaccinated</Paragraph>
-        </View>
-        {isPinnedCountry(country)}
-      </Card>
+      <TouchableOpacity key={place.country} style={styles.clickableContainer} onPress={() => navigation.navigate("CountryScreen", { country: place })}>
+        <Card style={styles.topicCard}>
+          <Subheading style={{ textAlign: 'center' }}>{place.country}</Subheading>
+          <Divider />
+          <View style={styles.dataPair}>
+            <Subheading style={styles.dataValue}>{parseInt(place.casesPerDay)}</Subheading>
+            <Paragraph style={styles.dataUnits}>cases /day</Paragraph>
+          </View>
+          <View style={styles.dataPair}>
+            <Subheading style={styles.dataValue}>{parseFloat(place.casesPer100k).toFixed(2)}</Subheading>
+            <Paragraph style={styles.dataUnits}>cases /100k</Paragraph>
+          </View>
+          <View style={styles.dataPair}>
+            <Subheading style={styles.dataValue}>{parseFloat(place.percentageVaccinated).toFixed(1)}%</Subheading>
+            <Paragraph style={styles.dataUnits}>vaccinated</Paragraph>
+          </View>
+          {isPinnedCountry(place)} 
+        </Card>
       </TouchableOpacity>
     );
-  })
+  });
 
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.section}>
         {regionsDisplay}
-        <Button icon="refresh" onPress={() => setSelectedRegion()}/>
+        <Button icon="refresh" onPress={handleRefresh} />
       </View>
       <Divider />
       <ScrollView contentContainerStyle={styles.scrollableSection}>
-        <Title style={{ width: '100%', paddingLeft: 20 }}>Countries</Title>
+        <Title style={{ width: "100%", paddingLeft: 20 }}>Countries</Title>
         {countryDataDisplay}
       </ScrollView>
-    </View >
+    </View>
   );
-}
+};
 
 function CustomNavigationBar({ navigation, previous }) {
   return (
     <Appbar.Header>
       {previous ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
-      <Appbar.Content title="World Updates" />
-        <Appbar.Action
-          icon="magnify"
-          onPress={() => console.log("Search places")}
-        />
-      </Appbar.Header>
+      <Appbar.Content title="COVID-19 Updates" />
+      <Appbar.Action
+        icon="magnify"
+        onPress={() => console.log("Search places")}
+      />
+    </Appbar.Header>
   );
 }
 
@@ -134,10 +204,10 @@ const Stack = createStackNavigator();
 export default function DestinationsStack() {
   return (
     <Stack.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          header: (props) => <CustomNavigationBar {...props} />,
-        }}>
+      initialRouteName="Home"
+      screenOptions={{
+        header: (props) => <CustomNavigationBar {...props} />,
+      }}>
       <Stack.Screen name="DestinationsScreen" component={DestinationsRoute} />
       <Stack.Screen name="CountryScreen" component={CountryRoute} />
     </Stack.Navigator>
@@ -149,7 +219,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    flexDirection: 'column',
+    flexDirection: "column",
   },
   unselectedChip: {
     backgroundColor: "#f2f0e1",
@@ -164,59 +234,67 @@ const styles = StyleSheet.create({
   },
   section: {
     padding: 20,
-    alignItems: 'center',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    alignItems: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
     paddingTop: 10,
   },
   scrollableSection: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    alignItems: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
     paddingTop: 10,
   },
   topicCard: {
-    flexDirection: 'row',
-    padding: '3%',
-    width: '40%',
-    height: 210,
-    marginLeft: '6%',
-    marginBottom: '5%',
+    flexDirection: "row",
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 5,
+    paddingRight: 5,
+    width: 155,
+    height: 180,
+    marginLeft: "6%",
+    marginBottom: "5%",
     marginTop: 5,
   },
   dataPair: {
     width: "100%",
-    alignItems: 'center',
-    flexDirection: 'row',
+    alignItems: "center",
+    flexDirection: "row",
     paddingTop: 5,
+    paddingLeft: '10%',
+    paddingRight: '10%',
   },
   dataValue: {
-    alignItems: 'center',
-    fontWeight: '700',
+    alignItems: "center",
+    fontWeight: "700",
     paddingRight: 10,
   },
   dataUnits: {
+    alignItems: "center",
     paddingTop: 2,
     fontSize: 12,
   },
   redDataUnits: {
+    alignItems: "center",
     paddingTop: 2,
     fontSize: 12,
     color: "#e60000",
   },
   greenDataUnits: {
+    alignItems: "center",
     paddingTop: 2,
     fontSize: 12,
     color: "#00b300",
   },
   changeRate: {
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
     marginBottom: -5,
     marginRight: 50,
     paddingTop: 8,
   },
   pinIcon: {
-    transform: [{ rotate: '20deg' }],
-    alignSelf: 'flex-end'
+    transform: [{ rotate: "20deg" }],
+    alignSelf: "flex-end",
   },
 });
