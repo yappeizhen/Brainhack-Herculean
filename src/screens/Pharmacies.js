@@ -64,11 +64,18 @@ const pharmaciesRoute = () => {
         ? styles.selectedCard
         : styles.unselectedCard;
     return (
-      <Card key={pharmacy.name} style={cardStyle} onPress={() => handleSelectedCard(pharmacy)}>
+      <Card
+        key={pharmacy.name}
+        style={cardStyle}
+        onPress={() => handleSelectedCard(pharmacy)}
+      >
         <Subheading style={{ textAlign: "center" }}>{pharmacy.name}</Subheading>
         <Divider />
         <View style={styles.address}>
           <Paragraph>{pharmacy.address}</Paragraph>
+        </View>
+        <View style={styles.address}>
+          <Paragraph>{pharmacy.distance}km</Paragraph>
         </View>
       </Card>
     );

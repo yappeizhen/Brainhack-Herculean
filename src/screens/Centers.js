@@ -91,6 +91,9 @@ const TestingCentersRoute = () => {
         <View style={styles.address}>
           <Paragraph>{testingCenter.address}</Paragraph>
         </View>
+        <View style={styles.address}>
+          <Paragraph>{testingCenter.distance}km</Paragraph>
+        </View>
       </Card>
     );
   });
