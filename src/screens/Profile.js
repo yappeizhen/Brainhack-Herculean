@@ -26,7 +26,6 @@ const ProfileRoute = () => {
     </View >
   );
 }
-
 export default ProfileRoute;
 
 const styles = StyleSheet.create({
