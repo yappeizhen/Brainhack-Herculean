@@ -1,15 +1,14 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { ScrollView, View, StyleSheet, SnapshotViewIOSComponent } from "react-native";
-import { Appbar, Chip, Divider, Card, Title, Subheading, Paragraph, Caption } from "react-native-paper";
+import { ScrollView, View, StyleSheet } from "react-native";
+import { Appbar, Chip, Divider, Card, Title, Subheading, Paragraph, IconButton } from "react-native-paper";
 import { regions, asiaDataSet, europeDataSet } from "./../assets/data/destinationData";
-import { getDatabase } from "firebase/database";
 import database from "../config/firebase"
 
 const DestinationsRoute = () => {
-  const [db, setDb] = useState();
   const [selectedRegion, setSelectedRegion] = useState();
   const [countrySet, setCountrySet] = useState(asiaDataSet);
+  const [pinned, setPinned] = useState([]);
   useEffect(() => {
     const ref = database.ref();
     ref.child("countries").get().then(snapshot => {
@@ -20,6 +19,38 @@ const DestinationsRoute = () => {
       }
     })
   }, [])
+
+  const pinCountry = (country) => {
+    setPinned([...pinned, country])
+    setCountrySet([country, ...countrySet.filter((item) => {
+      return item !== country
+    })]);
+  }
+
+  const unpinCountry = (country) => {
+    setPinned(pinned.filter((item) => {
+      return item !== country
+    }));
+    setCountrySet([...countrySet.filter((item) => {
+      return item !== country
+    }), country]);
+  }
+
+  var pinnedContains = (country) => {
+    for (var i = 0; i < pinned.length; i++) {
+      if (pinned[i] === country) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  const isPinnedCountry = (country) => {
+    if (pinnedContains(country)) {
+      return <IconButton size={20} icon="pin" style={styles.pinIcon} onPress={() => unpinCountry(country)} />
+    }
+    return <IconButton size={20} icon="pin-outline" style={styles.pinIcon} onPress={() => pinCountry(country)} />
+  }
 
   const handleSelectRegion = (region) => {
     setSelectedRegion(region);
@@ -59,6 +90,7 @@ const DestinationsRoute = () => {
           <Subheading style={styles.dataValue}>{country.percentageVaccinated}%</Subheading>
           <Paragraph style={styles.dataUnits}>Vaccinated</Paragraph>
         </View>
+        {isPinnedCountry(country)}
       </Card>
     );
   })
@@ -124,7 +156,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: '3%',
     width: '40%',
-    height: 200,
+    height: 210,
     marginLeft: '6%',
     marginBottom: '5%',
     marginTop: 5,
@@ -159,5 +191,9 @@ const styles = StyleSheet.create({
     marginBottom: -5,
     marginRight: 50,
     paddingTop: 8,
-  }
+  },
+  pinIcon: {
+    transform: [{ rotate: '20deg' }],
+    alignSelf: 'flex-end'
+  },
 });
