@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { ScrollView, View, StyleSheet, TouchableOpacity } from "react-native";
-import { Appbar, Chip, Divider, Card, Title, Subheading, Paragraph, IconButton, Button } from "react-native-paper";
+import { Appbar, Chip, Divider, Card, Title, Subheading, Paragraph, Caption, IconButton, Button} from "react-native-paper";
 import CountryRoute from "./Country.js";
 import { regions, asiaDataSet, europeDataSet } from "../../assets/data/destinationData";
 import { createStackNavigator } from "@react-navigation/stack";
