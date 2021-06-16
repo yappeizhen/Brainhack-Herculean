@@ -3,7 +3,7 @@ import { BottomNavigation } from "react-native-paper";
 import DestinationsScreen from "./Destinations/Destinations";
 import { NavigationContainer } from "@react-navigation/native";
 import SearchScreen from "./Search";
-import UploadScreen from "./Upload";
+import CentersScreen from "./Centers";
 import ChatScreen from "./Chat";
 import ProfileScreen from "./Profile";
 
@@ -12,7 +12,7 @@ const Main = () => {
   const [routes] = React.useState([
     { key: "destinations", title: "Explore", icon: "earth" },
     { key: "search", title: "Browse", icon: "magnify" },
-    { key: "upload", title: "Upload", icon: "upload-outline" },
+    { key: "centers", title: "Centers", icon: "upload-outline" },
     { key: "chat", title: "Chat", icon: "chat-outline" },
     { key: "profile", title: "Portfolio", icon: "account-outline" },
   ]);
@@ -20,7 +20,7 @@ const Main = () => {
   const renderScene = BottomNavigation.SceneMap({
     destinations: DestinationsScreen,
     search: SearchScreen,
-    upload: UploadScreen,
+    centers: CentersScreen,
     chat: ChatScreen,
     profile: ProfileScreen,
   });
