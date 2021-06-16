@@ -71,6 +71,9 @@ const HospitalsRoute = () => {
         <View style={styles.address}>
           <Paragraph>{hospital.address}</Paragraph>
         </View>
+        <View style={styles.address}>
+          <Paragraph>{hospital.distance}km</Paragraph>
+        </View>
       </Card>
     );
   });
