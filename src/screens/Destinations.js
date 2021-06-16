@@ -1,13 +1,25 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { ScrollView, View, StyleSheet } from "react-native";
+import { ScrollView, View, StyleSheet, SnapshotViewIOSComponent } from "react-native";
 import { Appbar, Chip, Divider, Card, Title, Subheading, Paragraph, Caption } from "react-native-paper";
 import { regions, asiaDataSet, europeDataSet } from "./../assets/data/destinationData";
+import { getDatabase } from "firebase/database";
+import database from "../config/firebase"
 
 const DestinationsRoute = () => {
-
+  const [db, setDb] = useState();
   const [selectedRegion, setSelectedRegion] = useState();
   const [countrySet, setCountrySet] = useState(asiaDataSet);
+  useEffect(() => {
+    const ref = database.ref();
+    ref.child("countries").get().then(snapshot => {
+      if (snapshot.exists()) {
+        const snapshots = snapshot.val()
+        const countries = Object.keys(snapshots).map(key => ({ country: key, ...snapshots[key] }))
+        console.log(countries)
+      }
+    })
+  }, [])
 
   const handleSelectRegion = (region) => {
     setSelectedRegion(region);
