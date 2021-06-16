@@ -98,7 +98,7 @@ const TestingCentersRoute = () => {
   return (
     <View style={{ flex: 1 }}>
       <Appbar.Header>
-        <Appbar.Content title="Healthcare Services" />
+        <Appbar.Content title="Testing Centers" />
         <Appbar.Action
           icon="magnify"
           onPress={() => console.log("Search places")}
