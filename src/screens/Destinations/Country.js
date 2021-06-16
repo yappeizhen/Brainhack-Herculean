@@ -1,10 +1,8 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
 import { ScrollView, View, StyleSheet, Text, Image } from "react-native";
-import { Appbar, Divider, Card, Title, Subheading, Paragraph, Caption } from "react-native-paper";
-import { regions, asiaDataSet, europeDataSet } from "../../assets/data/destinationData";
+import { Divider, Card, Title, Subheading } from "react-native-paper";
 import { List } from 'react-native-paper';
-
+import img from '../../assets/images/covid-graph.png'
 
 const CountryRoute = ({ route }) => {
 
@@ -18,10 +16,7 @@ const CountryRoute = ({ route }) => {
         <Divider />
         <Image
           style={styles.graphPic}
-          source={{
-            uri:
-              'https://filmdaily.co/wp-content/uploads/2020/04/cute-cat-videos-lede.jpg',
-          }}
+          source={img}
         />
         <View style={[styles.container, { flexDirection: "row" }, { justifyContent: "space-around" }, { alignItems: "center", }]}>
           <View style={styles.messageBox}>
@@ -144,7 +139,7 @@ const styles = StyleSheet.create({
   },
   graphPic: {
     height: 120,
-    width: 120,
+    width: 250,
     alignSelf: 'center',
     marginTop: 10,
     borderColor: 'white',
