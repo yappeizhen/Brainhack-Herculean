@@ -20,31 +20,13 @@ import {
   europeDataSet,
 } from "../../assets/data/destinationData";
 import { createStackNavigator } from "@react-navigation/stack";
-<<<<<<< HEAD
-//import database from "../config/firebase"
-
-const DestinationsRoute = ({navigation}) => {
-=======
 import database from "../../config/firebase";
->>>>>>> 5afdf66857dd0f747a9677368682d4483fc5c84c
 
 const DestinationsRoute = ({ navigation }) => {
   const [selectedRegion, setSelectedRegion] = useState();
   const [allCountries, setAllCountries] = useState([]);
   const [countriesToView, setCountriesToView] = useState([]);
   const [pinned, setPinned] = useState([]);
-<<<<<<< HEAD
-  // useEffect(() => {
-  //   const ref = database.ref();
-  //   ref.child("countries").get().then(snapshot => {
-  //     if (snapshot.exists()) {
-  //       const snapshots = snapshot.val()
-  //       const countries = Object.keys(snapshots).map(key => ({ country: key, ...snapshots[key] }))
-  //       console.log(countries)
-  //     }
-  //   })
-  // }, [])
-=======
 
   useEffect(() => {
     const ref = database.ref();
@@ -64,7 +46,6 @@ const DestinationsRoute = ({ navigation }) => {
         }
       });
   }, []);
->>>>>>> 5afdf66857dd0f747a9677368682d4483fc5c84c
 
   const pinCountry = (country) => {
     setPinned([...pinned, country]);

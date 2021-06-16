@@ -5,7 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import PharmaciesScreen from "./Pharmacies";
 import CentersScreen from "./Centers";
 import HospitalsScreen from "./Hospitals";
-import ProfileScreen from "./Profile";
+import StatusScreen from "./Status";
 
 const Main = () => {
   const [index, setIndex] = React.useState(0);
@@ -22,7 +22,7 @@ const Main = () => {
     pharmacies: PharmaciesScreen,
     tests: CentersScreen,
     hospitals: HospitalsScreen,
-    status: ProfileScreen,
+    status: StatusScreen,
   });
 
   return (
