@@ -70,6 +70,12 @@ const styles = StyleSheet.create({
     marginTop: 5,
     backgroundColor: "green",
   },
+  scrollableSection: {
+    alignItems: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    paddingTop: 10,
+  },
   unselectedCard: {
     flexDirection: "row",
     padding: "3%",
@@ -78,12 +84,6 @@ const styles = StyleSheet.create({
     marginLeft: "6%",
     marginBottom: "5%",
     marginTop: 5,
-  },
-  scrollableSection: {
-    alignItems: "center",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    paddingTop: 10,
   },
   // dataPair: {
   //   width: "100%",
