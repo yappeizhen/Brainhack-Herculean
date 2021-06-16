@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   section: {
     padding: 20,
-    alignItems: 'left',
+    alignItems: 'flex-start',
     flexDirection: 'column',
     flexWrap: 'wrap',
     paddingTop: 10,
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     fontWeight:"bold",
   },
   name:{
-    alignSelf: 'left',
+    alignSelf: 'flex-start',
     margin: 25,
     fontSize:20,
   },
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   textTile:{
-    alignItems: 'left',
+    alignItems: 'flex-start',
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
