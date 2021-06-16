@@ -1,11 +1,14 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { ScrollView, View, StyleSheet } from "react-native";
+import { ScrollView, View, StyleSheet, TouchableOpacity } from "react-native";
 import { Appbar, Chip, Divider, Card, Title, Subheading, Paragraph, IconButton, Button } from "react-native-paper";
-import { regions, asiaDataSet, europeDataSet } from "./../assets/data/destinationData";
+import CountryRoute from "./Country.js";
+import { regions, asiaDataSet, europeDataSet } from "../../assets/data/destinationData";
+import { createStackNavigator } from "@react-navigation/stack";
 import database from "../config/firebase"
 
-const DestinationsRoute = () => {
+const DestinationsRoute = ({navigation}) => {
+
   const [selectedRegion, setSelectedRegion] = useState();
   const [countrySet, setCountrySet] = useState(asiaDataSet);
   const [pinned, setPinned] = useState([]);
@@ -68,11 +71,13 @@ const DestinationsRoute = () => {
     );
   })
 
+
   const countryDataDisplay = countrySet.map((country) => {
     let sign = country.casePercentageChange <= 0 ? "" : "+";
     let coloredStyle = country.casePercentageChange <= 0 ? styles.greenDataUnits : styles.redDataUnits;
     return (
-      <Card key={country.name} style={styles.topicCard}>
+      <TouchableOpacity onPress={() => navigation.navigate("CountryScreen", {country:country})}>
+        <Card key={country.name} style={styles.topicCard}>
         <Subheading style={{ textAlign: 'center' }}>{country.name}</Subheading>
         <Divider />
         <View style={styles.changeRate}>
@@ -92,18 +97,12 @@ const DestinationsRoute = () => {
         </View>
         {isPinnedCountry(country)}
       </Card>
+        </TouchableOpacity>
     );
   })
 
   return (
     <View style={{ flex: 1 }}>
-      <Appbar.Header>
-        <Appbar.Content title="World Updates" />
-        <Appbar.Action
-          icon="magnify"
-          onPress={() => console.log("Search places")}
-        />
-      </Appbar.Header>
       <View style={styles.section}>
         {regionsDisplay}
         <Button icon="refresh" onPress={() => setSelectedRegion()}/>
@@ -117,7 +116,33 @@ const DestinationsRoute = () => {
   );
 }
 
-export default DestinationsRoute;
+function CustomNavigationBar({ navigation, previous }) {
+  return (
+    <Appbar.Header>
+      {previous ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
+      <Appbar.Content title="World Updates" />
+        <Appbar.Action
+          icon="magnify"
+          onPress={() => console.log("Search places")}
+        />
+      </Appbar.Header>
+  );
+}
+
+const Stack = createStackNavigator();
+
+export default function DestinationsStack() {
+  return (
+    <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          header: (props) => <CustomNavigationBar {...props} />,
+        }}>
+      <Stack.Screen name="DestinationsScreen" component={DestinationsRoute} />
+      <Stack.Screen name="CountryScreen" component={CountryRoute} />
+    </Stack.Navigator>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
